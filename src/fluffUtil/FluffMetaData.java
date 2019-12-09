@@ -1,6 +1,5 @@
 package fluffUtil;
 
-import org.apache.log4j.Logger;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
@@ -8,7 +7,6 @@ import java.util.*;
 
 public  class FluffMetaData {
 //    private static Logger log = Logger.getLogger(FluffMetaData.class);
-
 
     private int plus_fluff_endTime_minutes = 10;
     private final String fluffName;
@@ -26,10 +24,13 @@ public  class FluffMetaData {
     public int[] nSamples;
     public int[] nSensorItems;
     public Map<Integer, int[]> sensorDataTypes;
+    // sensor name i.e. "pho_gps" for the gps of the smart phone
     public String[] sensorLabels;
+    // units of the measurement and transformation on the units like 'double(X)./4096'
     public String[] sensorSpecs;
     public String customText;
     // the real data
+    // just pure numbers without information about the corresponding data-types
     public Object[][] data;
     public int lastSID = 0;
 

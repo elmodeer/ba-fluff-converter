@@ -1,7 +1,7 @@
 package fluffUtil;
 
 import com.sun.istack.internal.NotNull;
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 
 //import javax.validation.constraints.NotNull;
 import java.io.*;
