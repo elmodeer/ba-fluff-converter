@@ -1,6 +1,5 @@
 package fluffUtil;
 
-import org.apache.commons.lang3.ArrayUtils;
 //import org.apache.log4j.Logger;
 
 import java.time.LocalDateTime;
@@ -44,10 +43,10 @@ public class TimeSeries {
     // Utilities
     //================================================================================
     
-    public void concat(TimeSeries ts) {
-    	this.xAxis = ArrayUtils.addAll(xAxis, ts.getxAxis());
-    	this.yAxis = (Double[]) ArrayUtils.addAll(yAxis, ts.getyAxis());
-    }
+//    public void concat(TimeSeries ts) {
+//    	this.xAxis = ArrayUtils.addAll(xAxis, ts.getxAxis());
+//    	this.yAxis = (Double[]) ArrayUtils.addAll(yAxis, ts.getyAxis());
+//    }
 
     //================================================================================
     // Getters and Setters
