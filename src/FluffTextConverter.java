@@ -1,14 +1,11 @@
-import com.sun.tools.jdi.IntegerTypeImpl;
 import fluffUtil.FluffMetaData;
 import fluffUtil.ReadFluffIO;
-import sun.jvm.hotspot.utilities.AssertionFailure;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -71,8 +68,6 @@ public class FluffTextConverter implements Runnable {
         }
         System.out.println("Initiating " + partitions.size() + " threads with partition size of: " + partitionSize);
         ExecutorService executor = Executors.newCachedThreadPool();
-        // single thread
-//        executor.execute(new FluffTextConverter(allFiles, outputDirectory));
         // multi-thread
         for (List<File> partition: partitions) {
             System.out.println("new Thread started");
@@ -80,19 +75,6 @@ public class FluffTextConverter implements Runnable {
         }
     }
 
-    private static String getString(String[] sensorSpecs, String[] lables) {
-        StringBuilder res = new StringBuilder();
-        for (int i = 0; i < sensorSpecs.length; i++) {
-            res.append(lables[i]);
-            res.append(":");
-            res.append(sensorSpecs[i]);
-            if (i != sensorSpecs.length -1) {
-                res.append(":");
-                res.append("\n");
-            }
-        }
-        return res.toString();
-    }
 
     private void writeToFile(String fileName, String data) throws IOException {
         String patientName = "ST1814523348";
@@ -115,7 +97,6 @@ public class FluffTextConverter implements Runnable {
     }
 
     public void read() {
-//        HashSet<String> specs = new HashSet<>();
         files.forEach( f -> {
             String fileName = f.getName();
             if (fileName.endsWith("json")) {
@@ -125,13 +106,8 @@ public class FluffTextConverter implements Runnable {
                     String[] things = new String(Files.readAllBytes(Paths.get(f.toURI())), "UTF-8").split("'");
                     String data = things[things.length - 2];
                     ReadFluffIO.FluffReader fluffIO = new ReadFluffIO.FluffReader(fileName, data);
-//                    for reading .fluff
-//                    InputStream data = new FileInputStream(f.toFile());
-//                    ReadFluffIO.FluffReader fluffIO = new ReadFluffIO.FluffReader(fileName, data);
 
                     FluffMetaData fluffMetaData = fluffIO.readFluff(true);
-//                    specs.add(getString(fluffMetaData.sensorSpecs, fluffMetaData.sensorLabels));
-//                    System.out.println(print(fluffMetaData.sensorSpecs, fluffMetaData.sensorLabels));
 
                     // write content to separate files
                     writeToFile(fileName, fluffMetaData.displayData());
@@ -150,17 +126,6 @@ public class FluffTextConverter implements Runnable {
         });
         System.out.println("thread finished");
 
-//        try {
-//            String  content = "";
-//            for(String i : specs ) {
-//                content += i;
-//            }
-//            BufferedWriter writer = new BufferedWriter(new FileWriter("sensorsSpec.txt", true));
-//            writer.append(content);
-//            writer.close();
-//        } catch (IOException e) {
-//            System.out.println("problem in sensorsSpec file");
-//        }
     }
 
 }
